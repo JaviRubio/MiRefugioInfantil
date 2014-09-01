@@ -1,0 +1,87 @@
+from django.db import models
+
+class Recurso(models.Model):
+	direccion = models.CharField(max_length=255)
+	#Provisionalmente esto es una direccion web de un recurso que puede ser sonido, imagen, etc
+	#Otra posibilidad puede ser almacenar un campo tipo y que en vez de recurso se envie directamente el archivo correspondiente al enunciado	
+	def __unicode__(self):
+		return self.direccion
+
+class Ejercicio(models.Model):
+	DIFICULTAD_CHOICES =(
+		('facil','Facil'),
+		('normal','Normal'),
+		('dificil','Dificil'),
+		)
+	UNICA = 0
+	MULTIPLE = 1
+	TIPO_RESPUESTA = (
+		(UNICA,'Unica'),
+		(MULTIPLE,'Multiple'),
+		)
+	NFC = 0
+	ACEL = 1
+	TIPO = (
+		(NFC,'NFC'),
+		(ACEL,'Acelerometro'),
+		) 
+	pregunta = models.CharField(max_length=255)
+	solucion = models.CharField(max_length=20)#Array de bits que la posicion corresponde al identificador de un NFC
+	tipo_respuesta = models.PositiveSmallIntegerField(choices=TIPO_RESPUESTA,default=UNICA)
+	recursos = models.ManyToManyField(Recurso,blank=True,null=True)
+	dificultad = models.CharField(max_length=10,choices=DIFICULTAD_CHOICES,default='normal',null=True)
+	tipo = models.PositiveSmallIntegerField(choices=TIPO,default=NFC)
+	edad_minima = models.PositiveSmallIntegerField(blank=True,null=True)
+	edad_maxima = models.PositiveSmallIntegerField(blank=True,null=True)
+
+
+	def __unicode__(self):
+		return self.pregunta 
+
+class Actividad(models.Model):
+	nombre = models.CharField(max_length=255)
+	ejercicios = models.ManyToManyField(Ejercicio,null=True)#Permite que una actividad no tenga ningun enunciado hasta que el usuario se la asigne
+
+	def __unicode__(self):
+		return self.nombre
+
+class Jugador(models.Model):
+	identificador = models.CharField(max_length=255)
+	password = models.CharField(max_length=12)
+	nombre = models.CharField(max_length=50)
+	apellidos = models.CharField(max_length=100)
+	fecha_nacimiento = models.DateField()
+
+	def __unicode__(self):
+		return self.nombre
+
+class Refugio(models.Model):
+	localizacion = models.CharField(max_length=255)
+	actividades = models.ManyToManyField(Actividad)
+	
+	def __unicode__(self):
+		return self.localizacion
+
+class Sesion(models.Model):
+	jugador = models.ForeignKey(Jugador)
+	refugio = models.ForeignKey(Refugio)
+	inicio = models.DateTimeField()
+	fin = models.DateTimeField(null = True)
+
+	def __unicode__(self):
+		return "sesion de "+self.jugador.nombre+" en "+self.refugio.localizacion+" el dia "+str(self.inicio)+" hasta "+str(self.fin)
+
+class Resultado(models.Model):
+	#sesion = models.ForeignKey(Sesion)
+	#actividad = models.PositiveIntegerField(default=-1)
+	actividad = models.ForeignKey(Actividad)
+	#ejercicio = models.PositiveIntegerField(default=-1)
+	ejercicio = models.ForeignKey(Ejercicio)
+	tiempo_respuesta = models.PositiveIntegerField(default=0)
+	respuesta = models.CharField(max_length=20)
+
+	def __unicode__(self):
+		return "Resultado para el ejercicio "+str(self.ejercicio.pregunta)#+" en la "+str(self.sesion)
+	
+		
+		

@@ -1,0 +1,10 @@
+{% extends "administracion/template_base.html" %}
+
+{% block contenido_principal %}
+
+{{ detalle_actividad.nombre }}
+{% for enunciado in detalle_actividad.enunciados.all %}
+{{enunciado}}
+{% endfor %}
+
+{% endblock %}

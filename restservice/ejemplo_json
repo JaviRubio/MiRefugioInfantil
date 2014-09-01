@@ -1,0 +1,4 @@
+curl -i -X POST -H "Content-Type: application/json" -d @data.json http://127.0.0.1:8000/api/resultados
+
+
+,{"actividad":1,"ejercicio":3,"tiempo_respuesta":2623,"respuesta":"0;"}
