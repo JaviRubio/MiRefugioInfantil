@@ -1,0 +1,65 @@
+{% extends "administracion/actividad_base.html" %}
+
+{% block contenido_principal %}
+
+<div class="col-lg-6">
+								<div class="main-box">
+									<header class="main-box-header clearfix">
+										<h2>Añadir</h2>
+									</header>
+									<form role="form" method="post">
+									<div class="main-box-body clearfix">
+										
+												{% csrf_token %}
+	                                           {% for field in form %}
+                                                   <div class="form-group">
+                                                    <label for="{{field.id_for_label}}">{{field.label}}</label>
+                                                    {{field}}
+                                                    </div>
+                                                {% endfor %}
+                                            <!--div class="row"-->
+					
+							<div class="col-xs-6">
+								<div class="main-box clearfix">
+									<header class="main-box-header clearfix">
+										<h2>Ejercicios existentes</h2>
+									</header>
+									
+									<div class="main-box-body clearfix">
+										<ul class="widget-products">
+											<li>
+												<a href="#">
+													<span class="img">
+														<img src="img/samples/ipad.png" alt=""/>
+													</span>
+													
+													<span class="product clearfix">
+														<span class="name">
+															iPad mini 32GB WiFi Black&Slate
+														</span>
+														<span class="price">
+															<i class="fa fa-money"></i> &dollar;320,00
+														</span>
+														<span class="warranty">
+															<i class="fa fa-certificate"></i> Warranty: 2 years
+														</span>
+													</span>
+												</a>
+											</li>
+											
+											
+											
+										</ul>
+										
+									</div>
+								</div>
+							</div>
+
+									</div>
+									<input type='submit' value='Crear'/>
+										</form>
+								</div>
+							</div>
+
+
+{% endblock %}
