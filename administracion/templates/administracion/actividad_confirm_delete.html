@@ -1,4 +1,4 @@
-{% extends "administracion/refugio_base.html" %}
+{% extends "administracion/actividad_base.html" %}
 
 {% block contenido_principal %}
 
@@ -10,7 +10,7 @@
 									
 									<div class="main-box-body clearfix">
 										<form action="" method="post">{% csrf_token %}
-    									<p>¿Desea borrar el refugio localizado en {{ object }}?</p>
+    									<p>¿Desea borrar la actividad "{{ object }}"?</p>
     									<input type="submit" value="Confirmar" />
 										</form>
 									</div>

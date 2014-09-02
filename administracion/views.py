@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from administracion.models import Refugio, Actividad, Ejercicio
-from administracion.forms import RefugioForm
+from administracion.forms import RefugioForm, ActividadForm
 
 #def es_grupo_usuario(user,nombre_grupo):
 	#return user.groups.filter(name=nombre_grupo)
@@ -18,6 +18,7 @@ from administracion.forms import RefugioForm
 #def prueba(request):
 #	pass
 
+@login_required(login_url='login')
 def get_principal(request):
 	return render(request,"administracion/index.html")
 
@@ -63,6 +64,24 @@ class ActividadDetailView(DetailView):
 	model = Actividad
 	context_object_name = "detalle_actividad"
 	template_name = "administracion/actividad.html"
+
+
+class ActividadCreate(CreateView):
+	model = Actividad
+	form_class = ActividadForm
+	success_url = reverse_lazy('lista_actividades')
+	template_name = 'administracion/nuevo_actividad.html'
+
+class ActividadUpdate(UpdateView):
+	model = Actividad
+	form_class = ActividadForm
+	success_url = reverse_lazy('lista_actividades')
+	template_name = 'administracion/editar_actividad.html'
+
+class ActividadDelete(DeleteView):
+	model = Actividad
+	success_url = reverse_lazy('lista_actividades')
+	#template_name = 'administracion/borrar_refugio.html'	
 
 #Muestra todos los ejercicios de una actividad
 class EjercicioListView(ListView):
