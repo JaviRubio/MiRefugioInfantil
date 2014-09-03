@@ -14,7 +14,7 @@ class RefugioForm(ModelForm):
 class ActividadForm(ModelForm):
 
 	nombre = forms.CharField(label='Nombre',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	ejercicios = forms.ModelMultipleChoiceField(label='Ejercicios',queryset=Ejercicio.objects.all(), widget=forms.SelectMultiple(attrs={'class':'main-box clearfix'}))
+	ejercicios = forms.ModelMultipleChoiceField(label='Ejercicios',queryset=Ejercicio.objects.all(),widget=forms.SelectMultiple(attrs={'id':'ejercicios_list','class':'main-box clearfix'}))
 	class Meta:
 		model = Actividad
 		fields = ['nombre', 'ejercicios']
