@@ -18,4 +18,12 @@ class ActividadForm(ModelForm):
 	class Meta:
 		model = Actividad
 		fields = ['nombre', 'ejercicios']
+
+class EjercicioForm(ModelForm):
+
+	pregunta = forms.CharField(label='Pregunta',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	
+	class Meta:
+		model = Ejercicio
+		fields = ['pregunta']
 		

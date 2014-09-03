@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from administracion.models import Refugio, Actividad, Ejercicio
-from administracion.forms import RefugioForm, ActividadForm
+from administracion.forms import RefugioForm, ActividadForm, EjercicioForm
 
 #def es_grupo_usuario(user,nombre_grupo):
 	#return user.groups.filter(name=nombre_grupo)
@@ -84,18 +84,48 @@ class ActividadDelete(DeleteView):
 	#template_name = 'administracion/borrar_refugio.html'	
 
 #Muestra todos los ejercicios de una actividad
+#class EjercicioListView(ListView):
+
+#	context_object_name = "lista_enunciados"
+#	queryset = Ejercicio.objects.all()
+#	template_name = "administracion/vincular_enunciado.html"
+
+
+#class EjercicioDetailView(DetailView):
+
+#	model = Ejercicio
+#	context_object_name = "detalle_enunciado"
+#	template_name = "administracion/enunciado.html"
+
+
 class EjercicioListView(ListView):
 
-	context_object_name = "lista_enunciados"
+	context_object_name = "lista_ejercicios"
 	queryset = Ejercicio.objects.all()
-	template_name = "administracion/vincular_enunciado.html"
+	template_name = "administracion/ejercicios.html"
 
 
 class EjercicioDetailView(DetailView):
 
 	model = Ejercicio
-	context_object_name = "detalle_enunciado"
-	template_name = "administracion/enunciado.html"
+	context_object_name = "detalle_ejercicio"
+	template_name = "administracion/ejercicio.html"
 
+class EjercicioCreate(CreateView):
+	model = Ejercicio
+	form_class = EjercicioForm
+	success_url = reverse_lazy('lista_ejercicios')
+	template_name = 'administracion/nuevo_ejercicio.html'
+
+class EjercicioUpdate(UpdateView):
+	model = Ejercicio
+	form_class = EjercicioForm
+	success_url = reverse_lazy('lista_ejercicios')
+	template_name = 'administracion/editar_ejercicio.html'
+
+class EjercicioDelete(DeleteView):
+	model = Ejercicio
+	success_url = reverse_lazy('lista_ejercicios')
+	#template_name = 'administracion/borr
 
 
