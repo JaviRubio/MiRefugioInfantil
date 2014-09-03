@@ -62,26 +62,26 @@ class Refugio(models.Model):
 	def __unicode__(self):
 		return self.localizacion
 
-class Sesion(models.Model):
-	jugador = models.ForeignKey(Jugador)
-	refugio = models.ForeignKey(Refugio)
-	inicio = models.DateTimeField()
-	fin = models.DateTimeField(null = True)
-
-	def __unicode__(self):
-		return "sesion de "+self.jugador.nombre+" en "+self.refugio.localizacion+" el dia "+str(self.inicio)+" hasta "+str(self.fin)
-
 class Resultado(models.Model):
-	#sesion = models.ForeignKey(Sesion)
-	#actividad = models.PositiveIntegerField(default=-1)
 	actividad = models.ForeignKey(Actividad)
-	#ejercicio = models.PositiveIntegerField(default=-1)
 	ejercicio = models.ForeignKey(Ejercicio)
 	tiempo_respuesta = models.PositiveIntegerField(default=0)
 	respuesta = models.CharField(max_length=20)
 
 	def __unicode__(self):
 		return "Resultado para el ejercicio "+str(self.ejercicio.pregunta)#+" en la "+str(self.sesion)
+
+class Sesion(models.Model):
+	jugador = models.ForeignKey(Jugador)
+	refugio = models.ForeignKey(Refugio)
+	inicio = models.DateTimeField()
+	fin = models.DateTimeField(null = True)
+	resultados = models.ForeignKey(Resultado,null=True)
+
+	def __unicode__(self):
+		return "sesion de "+self.jugador.nombre+" en "+self.refugio.localizacion+" el dia "+str(self.inicio)+" hasta "+str(self.fin)
+
+
 	
 		
 		
