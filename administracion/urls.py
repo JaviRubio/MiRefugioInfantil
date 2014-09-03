@@ -18,6 +18,10 @@ urlpatterns = patterns('',
     url(r'^actividades/borrar/(?P<pk>\d+)/',views.ActividadDelete.as_view(),name='borrar_actividad'),
     url(r'^actividades/(?P<pk>\d+)',views.ActividadDetailView.as_view(), name='detalle_actividad'),
     url(r'^actividades/',views.ActividadListView.as_view(), name='lista_actividades'),
+<<<<<<< HEAD
+=======
+
+>>>>>>> c74f012805eea5e0b96fcc78f953db390838a99b
     url(r'^ejercicios/nuevo', views.EjercicioCreate.as_view(),name='crear_ejercicio'),
     url(r'^ejercicios/editar/(?P<pk>\d+)/',views.EjercicioUpdate.as_view(),name='editar_ejercicio'),
     url(r'^ejercicios/borrar/(?P<pk>\d+)/',views.EjercicioDelete.as_view(),name='borrar_ejercicio'),
