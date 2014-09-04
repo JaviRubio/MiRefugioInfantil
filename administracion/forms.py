@@ -6,10 +6,10 @@ from administracion.models import Refugio,Actividad,Ejercicio
 class RefugioForm(ModelForm):
 
 	localizacion = forms.CharField(label='Localizacion',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-
+	actividades = forms.ModelMultipleChoiceField(label='Actividades',queryset=Actividad.objects.all(), widget=forms.SelectMultiple(attrs={'class':'main-box clearfix'}))
 	class Meta:
 		model = Refugio
-		fields = ['localizacion']
+		fields = ['localizacion','actividades']
 
 class ActividadForm(ModelForm):
 
@@ -22,8 +22,12 @@ class ActividadForm(ModelForm):
 class EjercicioForm(ModelForm):
 
 	pregunta = forms.CharField(label='Pregunta',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	
+	solucion = forms.CharField(label='Solucion',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	tipo_respuesta = forms.TypedChoiceField(label='Tipo respuesta',choices=Ejercicio.TIPO_RESPUESTA,widget=forms.Select(attrs={'class': 'form-control'}))
+	dificultad = forms.TypedChoiceField(label='Dificultad',choices=Ejercicio.DIFICULTAD_CHOICES,widget=forms.Select(attrs={'class': 'form-control'}))
+	tipo = forms.TypedChoiceField(label='Tipo ejercicio',choices=Ejercicio.TIPO,widget=forms.Select(attrs={'class': 'form-control'}))
+	edad_minima = forms.TypedChoiceField(label='Edad minima',widget=forms.NumberInput(attrs={'class': 'form-control'}))
+	edad_maxima = forms.TypedChoiceField(label='Edad maxima',widget=forms.NumberInput(attrs={'class': 'form-control'}))
 	class Meta:
 		model = Ejercicio
-		fields = ['pregunta']
-		
+		fields = ['pregunta', 'solucion', 'tipo_respuesta', 'dificultad', 'tipo', 'edad_minima', 'edad_maxima']

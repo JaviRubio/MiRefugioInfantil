@@ -1,7 +1,9 @@
 {% extends "administracion/template_base.html" %}
 
 {% block breadcrumb %}
-<li class="active"><span><a href="{% url 'lista_ejercicios' %}">Refugios</a></span></li>
+<li class="active"><span><a href="{% url 'lista_ejercicios' %}">Ejercicios</a></span></li>
+{% block breadcrumb2 %}
+{% endblock %}
 {% endblock %}
 {% block titulo_seccion %}
 <h1>Ejercicio</h1>

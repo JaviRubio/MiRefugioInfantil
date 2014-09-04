@@ -1,5 +1,8 @@
 {% extends "administracion/ejercicio_base.html" %}
 
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'borrar_ejercicio' ejercicio.id %}">Eliminar</a></span></li>
+{% endblock %}
 {% block contenido_principal %}
 
 <div class="col-lg-6">

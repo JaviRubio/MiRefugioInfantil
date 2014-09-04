@@ -1,5 +1,10 @@
 {% extends "administracion/actividad_base.html" %}
 
+
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'borrar_actividad' actividad.id %}">Borrar</a></span></li>
+{% endblock %}
+
 {% block contenido_principal %}
 
 <div class="col-lg-6">

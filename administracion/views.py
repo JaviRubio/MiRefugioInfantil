@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from administracion.models import Refugio, Actividad, Ejercicio
 from administracion.forms import RefugioForm, ActividadForm, EjercicioForm
+from django.forms.models import model_to_dict
 
 #def es_grupo_usuario(user,nombre_grupo):
 	#return user.groups.filter(name=nombre_grupo)
@@ -18,7 +19,7 @@ from administracion.forms import RefugioForm, ActividadForm, EjercicioForm
 #def prueba(request):
 #	pass
 
-@login_required(login_url='login')
+#@login_required(login_url='login')
 def get_principal(request):
 	return render(request,"administracion/index.html")
 
@@ -106,8 +107,13 @@ class EjercicioListView(ListView):
 
 
 class EjercicioDetailView(DetailView):
-
 	model = Ejercicio
+	def get_context_data(self, **kwargs):
+		context = super(EjercicioDetailView, self).get_context_data(**kwargs)
+		context['respuesta'] = self.object.TIPO_RESPUESTA[self.object.tipo_respuesta][1]
+		context['tipo_ejercicio'] = self.object.TIPO[self.object.tipo][1]
+		return context
+
 	context_object_name = "detalle_ejercicio"
 	template_name = "administracion/ejercicio.html"
 
