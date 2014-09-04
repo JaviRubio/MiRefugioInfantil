@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User 
 class Recurso(models.Model):
 	direccion = models.CharField(max_length=255)
 	#Provisionalmente esto es una direccion web de un recurso que puede ser sonido, imagen, etc
@@ -8,10 +8,13 @@ class Recurso(models.Model):
 		return self.direccion
 
 class Ejercicio(models.Model):
+	FACIL = 0
+	NORMAL = 1
+	DIFICIL = 2
 	DIFICULTAD_CHOICES =(
-		('facil','Facil'),
-		('normal','Normal'),
-		('dificil','Dificil'),
+		(FACIL,'Facil'),
+		(NORMAL,'Normal'),
+		(DIFICIL,'Dificil'),
 		)
 	UNICA = 0 
 	MULTIPLE = 1
@@ -29,7 +32,7 @@ class Ejercicio(models.Model):
 	solucion = models.CharField(max_length=20)#Array de bits que la posicion corresponde al identificador de un NFC
 	tipo_respuesta = models.PositiveSmallIntegerField(choices=TIPO_RESPUESTA,default=UNICA)
 	recursos = models.ManyToManyField(Recurso,blank=True,null=True)
-	dificultad = models.CharField(max_length=10,choices=DIFICULTAD_CHOICES,default='normal',null=True)
+	dificultad = models.CharField(max_length=10,choices=DIFICULTAD_CHOICES,default=NORMAL,null=True)
 	tipo = models.PositiveSmallIntegerField(choices=TIPO,default=NFC)
 	edad_minima = models.PositiveSmallIntegerField(blank=True,null=True)
 	edad_maxima = models.PositiveSmallIntegerField(blank=True,null=True)
@@ -46,10 +49,7 @@ class Actividad(models.Model):
 		return self.nombre
 
 class Jugador(models.Model):
-	identificador = models.CharField(max_length=255)
-	password = models.CharField(max_length=12)
-	nombre = models.CharField(max_length=50)
-	apellidos = models.CharField(max_length=100)
+	user = models.ForeignKey(User)
 	fecha_nacimiento = models.DateField()
 
 	def __unicode__(self):
@@ -66,22 +66,21 @@ class Sesion(models.Model):
 	jugador = models.ForeignKey(Jugador)
 	refugio = models.ForeignKey(Refugio)
 	inicio = models.DateTimeField()
-	fin = models.DateTimeField(null = True)
+	fin = models.DateTimeField(blank=True,null = True)
 
 	def __unicode__(self):
 		return "sesion de "+self.jugador.nombre+" en "+self.refugio.localizacion+" el dia "+str(self.inicio)+" hasta "+str(self.fin)
 
 class Resultado(models.Model):
-	#sesion = models.ForeignKey(Sesion)
-	#actividad = models.PositiveIntegerField(default=-1)
+	sesion = models.ForeignKey(Sesion)
 	actividad = models.ForeignKey(Actividad)
-	#ejercicio = models.PositiveIntegerField(default=-1)
 	ejercicio = models.ForeignKey(Ejercicio)
 	tiempo_respuesta = models.PositiveIntegerField(default=0)
 	respuesta = models.CharField(max_length=20)
 
 	def __unicode__(self):
 		return "Resultado para el ejercicio "+str(self.ejercicio.pregunta)#+" en la "+str(self.sesion)
+
 	
 		
 		

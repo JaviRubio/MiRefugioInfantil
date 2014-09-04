@@ -8,6 +8,7 @@
 {% block contenido_principal %}
 
 <div class="col-lg-6">
+
 								<div class="main-box">
 									<header class="main-box-header clearfix">
 										<h2>Añadir</h2>
@@ -28,5 +29,94 @@
 									</div>
 							</div>
 
+	<!--div class="main-box">
+
+		<header class="main-box-header clearfix">
+			<h2>Añadir</h2>
+		</header>
+		<form role="form" method="post">
+			<div class="main-box-body clearfix">
+
+				{% csrf_token %}
+				{% for field in form %}
+				<div class="form-group">
+					<label for="{{field.id_for_label}}">{{field.label}}</label>
+					{% if field.name == "ejercicios" %}
+					<div id="listas-ejercicios" class="row">
+						<div class "col-xs-4">
+							<div class="main-box clearfix">
+								<header class="main-box-header clearfix">
+									<h2>Ejercicios existentes</h2>
+								</header>
+								<div id="existentes" class="main-box-body clearfix">
+									<ul id="lista-existentes" class="widget-products">
+										{% for choice in field.field.queryset %}
+											<div class="ejercicio">
+												<li>
+												{{choice}}
+												</li>
+											</div>										
+										{% endfor %}
+
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class "col-xs-4">
+							<div class="main-box clearfix">
+								<header class="main-box-header clearfix">
+									<h2>Ejercicios incluidos</h2>
+								</header>
+								<div id="incluidos" class="main-box-body clearfix">
+									
+									<ul id="lista-incluidos" class="widget-products">
+										
+										
+									</ul>
+									 
+								</div>
+							</div>
+						</div>
+					</div>
+
+					{% else %}
+					{{field}}
+					{% endif %}
+
+					
+				</div>
+				{% endfor %}
+				<input type='submit' value='Crear'/>
+			</div>
+		</form>
+	</div-->
+</div>
+{% endblock %}
+
+{% block hacer_draggable %}
+<script type="text/javascript">
+$( init );
+function init(){
+	$('.ejercicio').draggable({
+		//containment: $('#listas-ejercicios')
+	});
+	$('#existentes').droppable({
+		drop: function (event, ui){
+			$('#lista-existentes').append(ui.draggable);
+		}
+	});
+	$('#incluidos').droppable({
+		drop: function (event, ui){
+			$('#lista-incluidos').append(ui.draggable);
+		}
+	});
+}
+
+
+</script>
 
 {% endblock %}
+
+>>>>>>> c93d33b327fc88a7f5512f60b24fd36e63bdfd27
+
+
