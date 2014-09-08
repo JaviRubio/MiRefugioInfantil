@@ -53,7 +53,7 @@ class Jugador(models.Model):
 	fecha_nacimiento = models.DateField()
 
 	def __unicode__(self):
-		return self.nombre
+		return self.user.username
 
 class Refugio(models.Model):
 	localizacion = models.CharField(max_length=255)
@@ -69,7 +69,9 @@ class Sesion(models.Model):
 	fin = models.DateTimeField(blank=True,null = True)
 
 	def __unicode__(self):
-		return "sesion de "+self.jugador.nombre+" en "+self.refugio.localizacion+" el dia "+str(self.inicio)+" hasta "+str(self.fin)
+		return "sesion de "+str(self.jugador.user)+" en "+self.refugio.localizacion+" el dia "+str(self.inicio)+" hasta "+str(self.fin)
+
+
 
 class Resultado(models.Model):
 	sesion = models.ForeignKey(Sesion)
