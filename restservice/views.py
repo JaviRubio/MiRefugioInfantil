@@ -14,7 +14,7 @@ class ActividadList(generics.ListAPIView):
 		return actividades
 
 #Cuando se sale del refugio se llama a esta vista,
-# para actualizar la hora de fin de la sesion y obtener la id para incluirla en el array de resultados que se invocarán
+# para actualizar la hora de fin de la sesion y obtener la id para incluirla en el array de resultados que se invocaran
 
 #Mirar el viewset
 class SesionAPIView(mixins.UpdateModelMixin,generics.RetrieveAPIView):
@@ -40,6 +40,7 @@ class ResultadoList(generics.ListCreateAPIView):
 class LoginJugadorAPIView(views.APIView):
 
 	def post(self, request, format=None):
+		print(request.user)
 		serializer = serializers.LoginJugadorSerializer(data=request.DATA)
 		if serializer.is_valid():
 			jugador = get_object_or_404(Jugador.objects.filter(user__username=serializer.object['username']))
@@ -47,7 +48,7 @@ class LoginJugadorAPIView(views.APIView):
 				ref = Refugio.objects.get(pk=serializer.object['refugio'])
 				sesion = Sesion(jugador=jugador,refugio=ref,inicio=datetime.datetime.now(),fin=None)
 				sesion.save()
-				return response.Response(data)
+				return response.Response()
 		return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
 
