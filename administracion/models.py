@@ -74,7 +74,7 @@ class Sesion(models.Model):
 
 
 class Resultado(models.Model):
-	sesion = models.ForeignKey(Sesion)
+	sesion = models.ForeignKey(Sesion,related_name='%(app_label)s_%(class)s_resultados')
 	actividad = models.ForeignKey(Actividad)
 	ejercicio = models.ForeignKey(Ejercicio)
 	tiempo_respuesta = models.PositiveIntegerField(default=0)
