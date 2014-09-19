@@ -1,0 +1,30 @@
+{% extends "administracion/ejercicio_base.html" %}
+
+
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'crear_jugador' %}">Nuevo</a></span></li>
+{% endblock %}
+
+{% block contenido_principal %}
+
+<div class="col-lg-6">
+								<div class="main-box">
+									<header class="main-box-header clearfix">
+										<h2>Añadir</h2>
+									</header>
+									
+									<div class="main-box-body clearfix">
+										<form role="form" method="post">
+												{% csrf_token %}
+	                                           {% for field in form %}
+                                                   <div class="form-group">
+                                                    <label for="{{field.id_for_label}}">{{field.label}}</label>
+                                                    {{field}}
+                                                    </div>
+                                                {% endfor %}
+                                            <input type='submit' value='Crear'/>
+										</form>
+									</div>
+								</div>
+							</div>
+{% endblock %}
