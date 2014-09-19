@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from administracion.models import Refugio,Actividad,Ejercicio
+from administracion.models import Refugio,Actividad,Ejercicio,Jugador
 
 
 class RefugioForm(ModelForm):
@@ -31,3 +31,15 @@ class EjercicioForm(ModelForm):
 	class Meta:
 		model = Ejercicio
 		fields = ['pregunta', 'solucion', 'tipo_respuesta', 'dificultad', 'tipo', 'edad_minima', 'edad_maxima']
+
+class JugadorForm(ModelForm):
+
+	username = forms.CharField(label='Usuario',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	password = forms.CharField(label='Password',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	first_name = forms.CharField(label='Nombre',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	last_name = forms.CharField(label='Apellidos',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	fecha_nacimiento = forms.DateTimeField(label='Fecha de nacimiento',widget=forms.DateTimeInput(attrs={'format':'%Y-%m-%d','class': 'form-control'}))
+
+	class Meta:
+			model = Ejercicio
+			fields = ['username', 'password', 'first_name', 'last_name', 'fecha_nacimiento']

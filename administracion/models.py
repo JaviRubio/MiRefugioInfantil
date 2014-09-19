@@ -53,7 +53,7 @@ class Jugador(models.Model):
 	fecha_nacimiento = models.DateField()
 
 	def __unicode__(self):
-		return self.nombre
+		return self.user.username
 
 class Refugio(models.Model):
 	localizacion = models.CharField(max_length=255)

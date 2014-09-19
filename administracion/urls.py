@@ -22,5 +22,11 @@ urlpatterns = patterns('',
     url(r'^ejercicios/editar/(?P<pk>\d+)/',views.EjercicioUpdate.as_view(),name='editar_ejercicio'),
     url(r'^ejercicios/borrar/(?P<pk>\d+)/',views.EjercicioDelete.as_view(),name='borrar_ejercicio'),
     url(r'^ejercicios/(?P<pk>\d+)',views.EjercicioDetailView.as_view(),name='detalle_ejercicio'),
-    url(r'^ejercicios/',views.EjercicioListView.as_view(),name='lista_ejercicios'),    
+    url(r'^ejercicios/',views.EjercicioListView.as_view(),name='lista_ejercicios'), 
+    url(r'^jugador/nuevo', views.JugadorCreate.as_view(),name='crear_jugador'),
+    url(r'^jugador/editar/(?P<pk>\d+)/',views.JugadorUpdate.as_view(),name='editar_jugador'),
+    url(r'^jugador/borrar/(?P<pk>\d+)/',views.JugadorDelete.as_view(),name='borrar_jugador'),
+    url(r'^jugador/(?P<pk>\d+)',views.JugadorDetailView.as_view(),name='detalle_jugador'),
+    url(r'^jugador/',views.JugadorListView.as_view(),name='lista_jugadores'),    
+
 )

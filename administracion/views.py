@@ -5,8 +5,8 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from administracion.models import Refugio, Actividad, Ejercicio
-from administracion.forms import RefugioForm, ActividadForm, EjercicioForm
+from administracion.models import Refugio, Actividad, Ejercicio, Jugador
+from administracion.forms import RefugioForm, ActividadForm, EjercicioForm, JugadorForm
 from django.forms.models import model_to_dict
 
 #def es_grupo_usuario(user,nombre_grupo):
@@ -134,4 +134,39 @@ class EjercicioDelete(DeleteView):
 	success_url = reverse_lazy('lista_ejercicios')
 	#template_name = 'administracion/borr
 
+class JugadorListView(ListView):
+
+	context_object_name = "lista_jugadores"
+	queryset = Jugador.objects.all()
+	template_name = "administracion/jugadores.html"
+
+
+class JugadorDetailView(DetailView):
+	model = Jugador
+	context_object_name = "detalle_jugador"
+	template_name = "administracion/jugador.html"
+
+class JugadorCreate(CreateView):
+	model = Jugador
+	form_class = JugadorForm
+	success_url = reverse_lazy('lista_jugadores')
+	template_name = 'administracion/nuevo_jugador.html'
+	def form_valid(self, form):
+		user = User(username=self.request.username,password=self.request.password)
+		user.save()
+		jugador = Jugador(user=user,fecha_nacimiento=self.request.fecha_nacimiento)
+		jugador.save()
+		#form.instance.username = self.request.user
+		return super(JugadorCreate, self).form_valid(form)
+
+
+class JugadorUpdate(UpdateView):
+	model = Jugador
+	form_class = JugadorForm
+	success_url = reverse_lazy('lista_jugadores')
+	template_name = 'administracion/editar_jugador.html'
+
+class JugadorDelete(DeleteView):
+	model = Jugador
+	success_url = reverse_lazy('lista_jugadores')
 
