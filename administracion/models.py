@@ -26,7 +26,7 @@ class Ejercicio(models.Model):
 	ACEL = 1
 	TIPO = (
 		(NFC,'NFC'),
-		(ACEL,'Acelerometro'),
+		(ACEL,'Movimiento'),
 		) 
 	pregunta = models.CharField(max_length=255)
 	solucion = models.CharField(max_length=20)#Array de bits que la posicion corresponde al identificador de un NFC
