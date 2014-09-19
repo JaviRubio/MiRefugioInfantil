@@ -16,7 +16,7 @@ class Ejercicio(models.Model):
 		(NORMAL,'Normal'),
 		(DIFICIL,'Dificil'),
 		)
-	UNICA = 0
+	UNICA = 0 
 	MULTIPLE = 1
 	TIPO_RESPUESTA = (
 		(UNICA,'Unica'),

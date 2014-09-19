@@ -1,9 +1,35 @@
 {% extends "administracion/actividad_base.html" %}
 
+
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'crear_actividad' %}">Nueva</a></span></li>
+{% endblock %}
+
 {% block contenido_principal %}
 
 <div class="col-lg-6">
-	<div class="main-box">
+
+								<div class="main-box">
+									<header class="main-box-header clearfix">
+										<h2>Añadir</h2>
+									</header>
+									<form role="form" method="post">
+									<div class="main-box-body clearfix">
+										
+												{% csrf_token %}
+	                                           {% for field in form %}
+                                                   <div class="form-group">
+                                                    <label for="{{field.id_for_label}}">{{field.label}}</label>
+                                                    {{field}}
+                                                    </div>
+                                                {% endfor %}
+								
+									<input type='submit' value='Crear'/>
+									</form>
+									</div>
+							</div>
+
+	<!--div class="main-box">
 
 		<header class="main-box-header clearfix">
 			<h2>Añadir</h2>
@@ -63,7 +89,7 @@
 				<input type='submit' value='Crear'/>
 			</div>
 		</form>
-	</div>
+	</div-->
 </div>
 {% endblock %}
 
@@ -91,5 +117,6 @@ function init(){
 
 {% endblock %}
 
+>>>>>>> c93d33b327fc88a7f5512f60b24fd36e63bdfd27
 
 

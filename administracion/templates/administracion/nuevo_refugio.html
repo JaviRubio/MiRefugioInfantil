@@ -1,5 +1,8 @@
 {% extends "administracion/refugio_base.html" %}
 
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'crear_refugio' %}">Nuevo</a></span></li>
+{% endblock %}
 {% block contenido_principal %}
 
 <div class="col-lg-6">

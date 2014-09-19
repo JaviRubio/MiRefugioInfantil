@@ -1,6 +1,7 @@
 {% extends "administracion/refugio_base.html" %}
-
-
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'editar_refugio' refugio.id %}">Editar</a></span></li>
+{% endblock %}
 {% block contenido_principal %}
 
 <div class="col-lg-6">
@@ -18,6 +19,7 @@
                                                     {{field}}
                                                     </div>
                                                 {% endfor %}
+
                                             <input type='submit' value='Actualizar'/>
 										</form>
 									</div>
