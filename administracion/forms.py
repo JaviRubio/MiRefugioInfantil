@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm
 from administracion.models import Refugio,Actividad,Ejercicio,Jugador
 
 
@@ -34,12 +35,15 @@ class EjercicioForm(ModelForm):
 
 class JugadorForm(ModelForm):
 
-	username = forms.CharField(label='Usuario',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	password = forms.CharField(label='Password',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	first_name = forms.CharField(label='Nombre',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	last_name = forms.CharField(label='Apellidos',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	#username = forms.CharField(label='Usuario',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	#password = forms.CharField(label='Password',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	#first_name = forms.CharField(label='Nombre',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	#last_name = forms.CharField(label='Apellidos',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	user = UserCreationForm
 	fecha_nacimiento = forms.DateTimeField(label='Fecha de nacimiento',widget=forms.DateTimeInput(attrs={'format':'%Y-%m-%d','class': 'form-control'}))
 
 	class Meta:
-			model = Ejercicio
-			fields = ['username', 'password', 'first_name', 'last_name', 'fecha_nacimiento']
+			model = Jugador
+			fields = ['user', 'fecha_nacimiento']
+
+			
