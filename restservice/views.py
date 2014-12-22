@@ -54,11 +54,12 @@ class LoginJugadorAPIView(views.APIView):
 		if serializer.is_valid():
 			jugador = get_object_or_404(Jugador.objects.filter(user__username=serializer.object['username']))
 			if jugador.user.check_password(serializer.object['password']):
-				token,created = Token.objects.get(user=jugador.user)
-				ref = Refugio.objects.get(pk=serializer.object['refugio'])
-				sesion = Sesion(jugador=jugador,refugio=ref,inicio=datetime.datetime.now(),fin=None)
-				sesion.save()
-				return response.Response(data={'token': token.key })
+				token,created = Token.objects.get_or_create(user=jugador.user)
+				if created:
+					ref = Refugio.objects.get(pk=serializer.object['refugio'])
+					sesion = Sesion(jugador=jugador,refugio=ref,inicio=datetime.datetime.now(),fin=None)
+					sesion.save()
+					return response.Response(data={token.key})
 		return response.Response(status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -7,7 +7,7 @@ from administracion.models import Refugio,Actividad,Ejercicio,Jugador
 class RefugioForm(ModelForm):
 
 	localizacion = forms.CharField(label='Localizacion',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	actividades = forms.ModelMultipleChoiceField(label='Actividades',queryset=Actividad.objects.all(), widget=forms.SelectMultiple(attrs={'class':'main-box clearfix'}))
+	actividades = forms.ModelMultipleChoiceField(label='Actividades',queryset=Actividad.objects.all(), widget=forms.SelectMultiple(attrs={'class':'form-control'}))
 	class Meta:
 		model = Refugio
 		fields = ['localizacion','actividades']
@@ -15,7 +15,7 @@ class RefugioForm(ModelForm):
 class ActividadForm(ModelForm):
 
 	nombre = forms.CharField(label='Nombre',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	ejercicios = forms.ModelMultipleChoiceField(label='Ejercicios',queryset=Ejercicio.objects.all(),widget=forms.SelectMultiple(attrs={'id':'ejercicios_list','class':'main-box clearfix'}))
+	ejercicios = forms.ModelMultipleChoiceField(label='Ejercicios',queryset=Ejercicio.objects.all(),widget=forms.SelectMultiple(attrs={'id':'ejercicios_list','class':'form-control'}))
 	class Meta:
 		model = Actividad
 		fields = ['nombre', 'ejercicios']
@@ -33,17 +33,15 @@ class EjercicioForm(ModelForm):
 		model = Ejercicio
 		fields = ['pregunta', 'solucion', 'tipo_respuesta', 'dificultad', 'tipo', 'edad_minima', 'edad_maxima']
 
-class JugadorForm(ModelForm):
+class EjercicioVincularForm(forms.Form):
+	actividades = forms.ModelMultipleChoiceField(label='Actividades',queryset=Actividad.objects.all(),widget=forms.SelectMultiple(attrs={'id':'actividad_list','class':'form-control'}))
+	ejercicio_id = forms.CharField(max_length=255,widget=forms.HiddenInput())
 
-	#username = forms.CharField(label='Usuario',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	#password = forms.CharField(label='Password',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	#first_name = forms.CharField(label='Nombre',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	#last_name = forms.CharField(label='Apellidos',max_length=255,widget=forms.TextInput(attrs={'class': 'form-control'}))
-	user = UserCreationForm
-	fecha_nacimiento = forms.DateTimeField(label='Fecha de nacimiento',widget=forms.DateTimeInput(attrs={'format':'%Y-%m-%d','class': 'form-control'}))
+class JugadorForm(forms.Form):
 
-	class Meta:
-			model = Jugador
-			fields = ['user', 'fecha_nacimiento']
+	username = forms.CharField(label='Nombre Usuario', max_length=10,min_length=6,widget=forms.TextInput(attrs={'class': 'form-control'}))
+	password = forms.CharField(label='Password',max_length=10,min_length=6,widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+	fecha_nacimiento = forms.DateTimeField(label='Fecha de nacimiento (AAAA-MM-DD)',widget=forms.DateInput(attrs={'format':'%Y-%m-%d','class': 'form-control'}))
 
-			
+class JugadorUpdateForm(JugadorForm):
+	jugador_id = forms.CharField(max_length=255,widget=forms.HiddenInput())

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User,AbstractUser 
 class Recurso(models.Model):
 	direccion = models.CharField(max_length=255)
 	#Provisionalmente esto es una direccion web de un recurso que puede ser sonido, imagen, etc
@@ -32,7 +32,7 @@ class Ejercicio(models.Model):
 	solucion = models.CharField(max_length=20)#Array de bits que la posicion corresponde al identificador de un NFC
 	tipo_respuesta = models.PositiveSmallIntegerField(choices=TIPO_RESPUESTA,default=UNICA)
 	recursos = models.ManyToManyField(Recurso,blank=True,null=True)
-	dificultad = models.CharField(max_length=10,choices=DIFICULTAD_CHOICES,default=NORMAL,null=True)
+	dificultad = models.PositiveSmallIntegerField(max_length=10,choices=DIFICULTAD_CHOICES,default=NORMAL,null=True)
 	tipo = models.PositiveSmallIntegerField(choices=TIPO,default=NFC)
 	edad_minima = models.PositiveSmallIntegerField(blank=True,null=True)
 	edad_maxima = models.PositiveSmallIntegerField(blank=True,null=True)
@@ -49,11 +49,15 @@ class Actividad(models.Model):
 		return self.nombre
 
 class Jugador(models.Model):
-	user = models.ForeignKey(User)
+	user = models.OneToOneField(User)
 	fecha_nacimiento = models.DateField()
 
 	def __unicode__(self):
 		return self.user.username
+
+	def delete(self,*args,**kwargs):
+		self.user.delete()
+		super(self.__class__, self).delete(*args, **kwargs)
 
 class Refugio(models.Model):
 	localizacion = models.CharField(max_length=255)
