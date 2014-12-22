@@ -1,9 +1,0 @@
-{% extends "administracion/base.html" %}
-
-{% block content %}
-<ol>
-{% for actividad in lista_actividades.all %}
-<li>{{ actividad.nombre }}</li>
-{% endfor %}
-</ol>
-{% endblock %}
