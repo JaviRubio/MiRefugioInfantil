@@ -1,0 +1,27 @@
+{% extends "administracion/actividad_base.html" %}
+
+
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'borrar_actividad' actividad.id %}">Borrar</a></span></li>
+{% endblock %}
+
+{% block contenido_principal %}
+
+<div class="col-lg-6">
+								<div class="main-box">
+									<header class="main-box-header clearfix">
+										<h2>Borrar</h2>
+									</header>
+									
+									<div class="main-box-body clearfix">
+										<form action="" method="post">{% csrf_token %}
+    									<p>¿Desea borrar la actividad "{{ object }}"?</p>
+    									<input type="submit" class="btn btn-default" value="Confirmar" />
+										</form>
+									</div>
+								</div>
+							</div>
+{% endblock %}
+
+
+

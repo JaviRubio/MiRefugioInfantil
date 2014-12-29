@@ -1,0 +1,80 @@
+{% extends "administracion/jugador_base.html" %}
+
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'detalle_jugador' detalle_jugador.id %}">Informacion</a></span></li>
+{% endblock %}
+{% block contenido_principal %}
+
+<div class="col-lg-9">
+								<div class="main-box">
+									<header class="main-box-header clearfix">
+										<h2>Mostrar información</h2>
+									</header>
+									<div class="main-box-body clearfix">
+										<div class="form-group">
+										 <label>Username</label>	
+	                                     <input class="form-control" type="text" value="{{ detalle_jugador.user.username }}" readonly >
+	                                     </div>
+	                                     <div class="form-group">
+	                                	<label>Fecha Nacimiento</label>	
+	                                     <input class="form-control" type="text" value="{{ detalle_jugador.fecha_nacimiento }}" readonly >
+	                                     </div>
+	                                                       
+									</div>
+								</div>
+								{% if resultados.all %}
+								<div class="main-box">
+									<header class="main-box-header clearfix">
+										<h2>Resultados</h2>
+									</header>
+									<div class="main-box-body clearfix">
+											<div class="table-responsive">
+												<table class="table">
+													<thead>
+														<tr>
+															<th><span>Hora Inicio Sesión</span></th>
+															<th><span>Hora Fin Sesión</span></th>
+															<th><span>Refugio Sesión</span></th>
+															<th><span>Actividad</span></th>
+															<th><span>Ejercicio</span></th>
+															<th><span>Respuesta</span></th>
+															<th><span>Tiempo respuesta (ms.)</span></th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for resultado in resultados.all %}
+														<tr>
+															<td>
+																{{resultado.sesion.inicio}}
+															</td>
+															<td>
+																{{resultado.sesion.fin}}
+															</td>
+															<td>
+																{{resultado.sesion.refugio}}
+															</td>
+															<td>
+																{{resultado.actividad}}
+															</td>
+															<td>
+																{{resultado.ejercicio}}
+															</td>
+															<td>
+																{{resultado.respuesta}}
+															</td>
+															<td>
+																{{resultado.tiempo_respuesta}}
+															</td>
+														</tr>
+														{% endfor %}
+													</tbody>
+												</table>	
+											</div>
+	                                    </div> 
+								</div>
+								{% endif %}
+							</div>
+
+
+
+{% endblock %}

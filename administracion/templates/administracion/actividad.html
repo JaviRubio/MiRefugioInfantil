@@ -1,0 +1,28 @@
+{% extends "administracion/actividad_base.html" %}
+
+{% block breadcrumb2 %}
+<li class="active"><span><a href="{% url 'detalle_actividad' detalle_actividad.id %}">Informacion</a></span></li>
+{% endblock %}
+
+{% block contenido_principal %}
+
+<div class="col-lg-6">
+								<div class="main-box">
+									<header class="main-box-header clearfix">
+										<h2>Mostrar información</h2>
+									</header>
+									<div class="main-box-body clearfix">
+										<div class="form-group">
+										 <label>Nombre</label>	
+	                                     <input class="form-control" id="id_pregunta" maxlength="255" name="pregunta" type="text" value="{{ detalle_actividad.nombre }}" readonly >
+	                                     </div>
+	                                     <div class="form-group">
+	                                     <label>Ejercicios</label>
+	                                    {% for ejercicio in detalle_actividad.ejercicios.all %}
+	                                     <input class="form-control" id="id_pregunta" maxlength="255" name="pregunta" type="text" value="{{ ejercicio }}" readonly >
+	                                    {% endfor %}                                          
+									</div>
+								</div>
+							</div>
+
+{% endblock %}
