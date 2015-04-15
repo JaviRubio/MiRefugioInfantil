@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">mi refugio infantil</string>
+    <string name="dummy_button">Enviar</string>
+    <string name="dummy_content"></string>
+    <string name="title_activity_buscar_enunciado">Busca Actividad</string>
+    <string name="title_activity_nfc">ActividadNFC</string>
+    <string name="title_activity_dbhandler_nfc">DBHANDLER</string>
+    <string name="title_activity_realizar_ejercicio_acelerometro">ejercicio acelerometro</string>
+    <string name="title_activity_confirmacion_ejercicio">confirmacion</string>
+    <string name="title_activity_realizar_enunciado">realizarNFC</string>
+    <string name="title_activity_fin">FIN</string>
+
+
+</resources>
