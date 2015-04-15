@@ -1,4 +1,4 @@
-# gestion-refugios
+# Mi refugio infantil
 Aplicacion compañera de Mi refugio infantil.
 
 La aplicacion consiste en un cliente Android conectado a un servidor realizado con Django.
